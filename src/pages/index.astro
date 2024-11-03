@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BookmarkForm from '../components/BookmarkForm.astro';
+import BookmarkList from '../components/BookmarkList.astro';
+---
+
+<Layout title="xBrowserSync Manager">
+  <main>
+    <h1 class="text-4xl font-bold text-center mb-8">
+      xBrowserSync Bookmark Manager
+    </h1>
+    
+    <BookmarkForm />
+    <BookmarkList />
+  </main>
+</Layout>

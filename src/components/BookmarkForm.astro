@@ -1,0 +1,94 @@
+---
+---
+
+<script></script>
+
+<form class="card bg-base-200 shadow-xl p-6 max-w-xl mx-auto" id="bookmarkForm">
+  <div class="form-control w-full">
+    <label class="label" for="endpoint">
+      <span class="label-text" onclick="">xBrowserSync API Endpoint</span>
+    </label>
+    <input
+      type="url"
+      id="endpoint"
+      name="endpoint"
+      placeholder="https://api.xbrowsersync.org"
+      value="https://api.xbrowsersync.org"
+      class="input input-bordered w-full"
+      required
+    />
+  </div>
+
+  <div class="form-control w-full mt-4">
+    <label class="label" for="syncId">
+      <span class="label-text">Sync ID</span>
+    </label>
+    <input
+      type="text"
+      id="syncId"
+      name="syncId"
+      autocomplete="username"
+      placeholder="Enter your Sync ID"
+      class="input input-bordered w-full"
+      required
+    />
+  </div>
+
+  <div class="form-control w-full mt-4">
+    <label class="label" for="password">
+      <span class="label-text">Password</span>
+    </label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      autocomplete="password"
+      placeholder="Enter your password"
+      class="input input-bordered w-full"
+      required
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary mt-6"> Load Bookmarks </button>
+</form>
+
+<script>
+  import { decriptBookmarks } from "../utils/decipher";
+  document
+    .getElementById("bookmarkForm")
+    ?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target as HTMLFormElement);
+      const data = {
+        endpoint: formData.get("endpoint"),
+        syncId: formData.get("syncId"),
+        password: formData.get("password"),
+      };
+
+      // TODO: Implement bookmark decryption logic
+      console.log("Form submitted with data:", data);
+
+      try {
+        let url =
+          "https://api.xbrowsersync.org/bookmarks/61cfab1340704d318ef6f75a40f18e78";
+
+        let options = {
+          method: "GET",
+          headers: { "User-Agent": "insomnia/10.1.1" },
+        };
+
+        const res: {
+          bookmarks: string;
+        } = await fetch(url, options).then((res) => res.json());
+
+        const result = await decriptBookmarks({
+          pw: data.password.toString(),
+          syncId: data.syncId.toString(),
+          encryptedBookmarks: res.bookmarks,
+        });
+        console.log(result);
+      } catch (error) {
+        console.error("Error decrypting bookmarks:", error);
+      }
+    });
+</script>
