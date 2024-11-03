@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <script></script>
@@ -54,6 +55,7 @@
 
 <script>
   import { decriptBookmarks } from "../utils/decipher";
+
   document
     .getElementById("bookmarkForm")
     ?.addEventListener("submit", async (e) => {
@@ -86,7 +88,8 @@
           syncId: data.syncId.toString(),
           encryptedBookmarks: res.bookmarks,
         });
-        console.log(result);
+        console.dir(JSON.parse(result));
+        localStorage.setItem("bookmarks", result);
       } catch (error) {
         console.error("Error decrypting bookmarks:", error);
       }

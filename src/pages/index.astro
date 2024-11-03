@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BookmarkForm from '../components/BookmarkForm.astro';
-import BookmarkList from '../components/BookmarkList.astro';
+import BookmarkList from '../components/BookmarkList.svelte';
 ---
 
 <Layout title="xBrowserSync Manager">
@@ -11,6 +11,6 @@ import BookmarkList from '../components/BookmarkList.astro';
     </h1>
     
     <BookmarkForm />
-    <BookmarkList />
+    <BookmarkList client:idle/>
   </main>
 </Layout>
