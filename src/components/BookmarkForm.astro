@@ -2,10 +2,6 @@
 
 ---
 
-<script>
-
-</script>
-
 <form class="card bg-base-200 shadow-xl p-6 max-w-xl mx-auto" id="bookmarkForm">
   <div class="form-control w-full">
     <label class="label" for="endpoint">
@@ -57,10 +53,20 @@
 
 <script>
   import { decriptBookmarks } from "../utils/decipher";
+  let hasCache = false;
+  if (typeof localStorage !== "undefined") {
+    const storedBookmarks = localStorage.getItem("bookmarks");
+
+    hasCache = !!storedBookmarks;
+  }
+  if (hasCache) {
+    document.getElementById("bookmarkForm").style.display = "none";
+  }
 
   document
     .getElementById("bookmarkForm")
     ?.addEventListener("submit", async (e) => {
+      e.preventDefault();
       const formData = new FormData(e.target as HTMLFormElement);
       const data = {
         endpoint: formData.get("endpoint"),
@@ -72,8 +78,7 @@
       console.log("Form submitted with data:", data);
 
       try {
-        let url =
-          `https://api.xbrowsersync.org/bookmarks/${data.syncId}`
+        let url = `https://api.xbrowsersync.org/bookmarks/${data.syncId}`;
 
         let options = {
           method: "GET",
@@ -90,6 +95,8 @@
         });
         console.dir(JSON.parse(result));
         localStorage.setItem("bookmarks", result);
+
+        window.location.reload();
       } catch (error) {
         console.error("Error decrypting bookmarks:", error);
       }

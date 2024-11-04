@@ -5,7 +5,9 @@ export default {
     extend: {},
   },
   plugins: [require('daisyui')],
+  /** @type {import('daisyui').Config} */
   daisyui: {
-    themes: ['light', 'dark'],
+    darkTheme: 'dark',
+    themes: ['dark'],
   },
 }

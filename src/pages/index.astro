@@ -1,10 +1,24 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import BookmarkForm from '../components/BookmarkForm.astro';
-import BookmarkList from '../components/BookmarkList.svelte';
-import DashboardLayout from '../layouts/DashboardLayout.astro';
+import Layout from "../layouts/Layout.astro";
+import BookmarkForm from "../components/BookmarkForm.astro";
+import BookmarkList from "../components/BookmarkList.svelte";
+import DashboardLayout from "../layouts/DashboardLayout.astro";
+import Search from "../components/Search.svelte";
 ---
 
 <DashboardLayout title="xBrowserSync Manager">
-    <BookmarkForm />
+  <div class="md:flex">
+    <div
+      class="md:w-64 w-full bg-base-200 min-h-screen p-4 flex flex-col overflow-auto max-h-screen relative min-w-32"
+    >
+      <Search client:idle class="md:hidden mb-4" />
+      <div class="md:none">
+        <BookmarkForm />
+      </div>
+      <BookmarkList client:idle />
+    </div>
+    <div class="md:block hidden w-full max-h-dvh overflow-auto">
+      <Search client:idle />
+    </div>
+  </div>
 </DashboardLayout>
