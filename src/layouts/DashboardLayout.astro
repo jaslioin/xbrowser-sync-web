@@ -1,0 +1,145 @@
+---
+import BookmarkList from "../components/BookmarkList.svelte";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="xBrowserSync Bookmark Manager" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-base-100 flex">
+    <!-- Sidebar -->
+    <aside
+      class="w-64 bg-base-200 min-h-screen p-4 flex flex-col overflow-auto max-h-screen relative min-w-32"
+    >
+      <div
+        class="absolute inset-y-0 right-0 w-3 cursor-e-resize hover:bg-gray-400 transition-colors"
+        onmousedown="startResize(event)"
+      >
+      </div>
+      <BookmarkList client:idle />
+    </aside>
+
+    <script is:inline>
+      function startResize(e) {
+        const aside = e.target.parentElement;
+        const minWidth = 300;
+        const maxWidth = 600;
+
+        // Prevent text selection while resizing
+        document.body.style.userSelect = 'none';
+
+        function onMouseMove(e) {
+          let newWidth = e.clientX;
+          newWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
+          aside.style.width = newWidth + "px";
+        }
+
+        function onMouseUp() {
+          document.removeEventListener("mousemove", onMouseMove);
+          document.removeEventListener("mouseup", onMouseUp);
+          // Re-enable text selection
+          setTimeout(()=>{document.body.style.userSelect = '';})
+        }
+
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+      }
+    </script>
+    <div class="w-full max-h-dvh overflow-auto">
+      <div>
+        <search class="w-full p-4">
+          <input
+            type="search"
+            placeholder="Search bookmarks..."
+            class="input input-bordered w-2/5"
+          />
+        </search>
+        <div class="flex gap-2 px-4">
+          <button class="btn btn-sm btn-outline">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"></path>
+            </svg>
+            Add New
+          </button>
+          <button class="btn btn-sm btn-outline">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+              ></path>
+            </svg>
+            Export
+          </button>
+          <button class="btn btn-sm btn-outline">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              ></path>
+            </svg>
+            Import
+          </button>
+          <button class="btn btn-sm btn-outline btn-error">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              ></path>
+            </svg>
+            Delete Selected
+          </button>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <main class="flex-1 p-6">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

@@ -21,7 +21,6 @@
   }
 </script>
 
-<div class="mt-8">
   {#if bookmarks.length === 0}
     <div class="text-center py-8">
       <div class="text-xl text-gray-500">No bookmarks loaded</div>
@@ -30,10 +29,11 @@
       </p>
     </div>
   {:else}
-    <div class="grid gap-4">
+    <div class="space-y-2">
       {#each bookmarks as bookmark}
-        <BookmarkCard {bookmark} />
+        <div >
+          <BookmarkCard {bookmark} />
+        </div>
       {/each}
     </div>
   {/if}
-</div>

@@ -2,7 +2,9 @@
 
 ---
 
-<script></script>
+<script>
+
+</script>
 
 <form class="card bg-base-200 shadow-xl p-6 max-w-xl mx-auto" id="bookmarkForm">
   <div class="form-control w-full">
@@ -59,7 +61,6 @@
   document
     .getElementById("bookmarkForm")
     ?.addEventListener("submit", async (e) => {
-      e.preventDefault();
       const formData = new FormData(e.target as HTMLFormElement);
       const data = {
         endpoint: formData.get("endpoint"),
@@ -72,11 +73,10 @@
 
       try {
         let url =
-          "https://api.xbrowsersync.org/bookmarks/61cfab1340704d318ef6f75a40f18e78";
+          `https://api.xbrowsersync.org/bookmarks/${data.syncId}`
 
         let options = {
           method: "GET",
-          headers: { "User-Agent": "insomnia/10.1.1" },
         };
 
         const res: {
