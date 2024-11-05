@@ -26,10 +26,10 @@ const { title } = Astro.props;
     {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
     <script src="/src/pwa.ts"></script>
   </head>
-  <body class="min-h-screen bg-base-100">
+  <body class="min-h-dvh bg-base-100">
     <!-- Main Content -->
     <slot />
-    <footer>
+    <footer class="fixed bottom-0 left-0 p-2 text-sm text-gray-500">
       Built at: {buildDate}
     </footer>
   </body>
