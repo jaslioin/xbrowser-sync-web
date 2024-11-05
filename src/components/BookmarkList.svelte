@@ -21,7 +21,7 @@
 
       // Check if title contains search string
       const isMatch =
-        searchLower === "" ? null : titleLower.includes(searchLower);
+        searchLower === "" ? undefined : titleLower.includes(searchLower);
 
       // Recursively search children if they exist
       if (bookmark.children && bookmark.children.length > 0) {

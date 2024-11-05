@@ -18,9 +18,15 @@
       // Case insensitive search
       const searchLower = str.toLowerCase();
       const titleLower = bookmark.title.toLowerCase();
+      const urlLower = bookmark.url?.toLowerCase() || '';
+      const descriptionLower = bookmark.description?.toLowerCase() || '';
+      const tagsLower = bookmark.tags?.map(t => t.toLowerCase()) || [];
 
-      // Check if title contains search string
-      const isMatch = titleLower.includes(searchLower);
+      // Check if any fields contain search string
+      const isMatch = titleLower.includes(searchLower) || 
+                     urlLower.includes(searchLower) ||
+                     descriptionLower.includes(searchLower) ||
+                     tagsLower.some(tag => tag.includes(searchLower));
 
       // Build the path for this bookmark
       const currentPath = bookmark.title;

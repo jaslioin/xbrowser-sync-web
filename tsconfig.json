@@ -1,4 +1,13 @@
 {
-  "extends": "astro/tsconfigs/base",
-  "exclude": ["node_modules","public"]
+  "extends": "astro/tsconfigs/strict",
+  "exclude": ["node_modules", "public"],
+  "compilerOptions": {
+    "types": [
+      "vite-plugin-pwa/client",
+      "astro/client",
+      "vite-plugin-pwa/vanillajs",
+      "vite-plugin-pwa/svelte",
+      "vite-plugin-pwa/info"
+    ]
+  }
 }

@@ -7,7 +7,11 @@
 </script>
 
 {#if bookmark.url}
-  <div class="flex items-center gap-2 py-1 hover:bg-base-200 rounded px-2 my-1">
+  <div
+    class="flex items-center gap-2 py-1 hover:bg-base-200 rounded px-2 my-1"
+    class:bg-stone-300={bookmark.isMatch}
+    class:opacity-30={bookmark.isMatch === false}
+  >
     <span>🔗</span>
     <a
       href={bookmark.url}

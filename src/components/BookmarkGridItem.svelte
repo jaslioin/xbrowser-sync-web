@@ -11,6 +11,12 @@
     <div class="card-body p-4">
       <div class=" card-title flex items-center gap-2">
         <span class="text-lg">🔗</span>
+        <img
+          src={`https://www.google.com/s2/favicons?domain=${new URL(bookmark.url).hostname}&sz=32`}
+          alt={`Favicon for ${bookmark.title}`}
+          class="w-6 h-6"
+          loading="lazy"
+        />
         <div class="flex flex-col">
           <a
             href={bookmark.url}
@@ -37,6 +43,20 @@
           {/each}
         </div>
       {/if}
+
+      {#if bookmark.url}
+        <div class="w-full h-32 bg-base-200 rounded-lg overflow-hidden">
+          <img
+            src={`https://api.microlink.io/?url=${encodeURIComponent(bookmark.url)}&screenshot=true&meta=false&embed=screenshot.url`}
+            alt={`Preview of ${bookmark.title}`}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      {/if}
+
+      
+
     </div>
   </div>
 {:else}
