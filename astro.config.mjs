@@ -25,6 +25,7 @@ export default defineConfig({
       scope: '/',
       includeAssets: ['favicon.svg'],
       registerType: 'autoUpdate',
+
       manifest: {
         name: 'xBrowserSync Bookmark Manager',
         short_name: 'xBookmark',
@@ -51,6 +52,40 @@ export default defineConfig({
       workbox: {
         navigateFallback: '/',
         globPatterns: ['**/*.{css,js,html,svg,png,ico,txt}'],
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.href.includes('google.com/s2/favicons'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'api-cache',
+              expiration: {
+                maxAgeSeconds: 24 * 60 * 60
+              },
+              matchOptions: {
+                ignoreSearch: true
+              },
+              cacheableResponse: {
+                statuses: [0, 200, 301] // Only cache successful responses
+              }
+            }
+          },
+          {
+            urlPattern: ({ url }) => url.href.includes('api.microlink.io'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'api-cache-microlink',
+              expiration: {
+                maxAgeSeconds: 24 * 60 * 60
+              },
+              matchOptions: {
+                ignoreSearch: true
+              },
+              cacheableResponse: {
+                statuses: [0, 200, 301] // Only cache successful responses
+              }
+            }
+          }
+        ]
       },
       devOptions: {
         enabled: true,
