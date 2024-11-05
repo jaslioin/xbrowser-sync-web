@@ -1,6 +1,10 @@
 <script lang="ts">
   import { searchString } from "../store/search";
-  const { class: className = "" } = $props();
+  const {
+    class: className = "",
+  }: {
+    class: string;
+  } = $props();
 
   let hasCache = $state(false);
 
@@ -18,7 +22,7 @@
   }
 </script>
 
-<search class={`w-full ${className ?? ""} ${hasCache ? "" : "hidden"}`}>
+<search class={`${className ?? ""} ${hasCache ? "" : "hidden"}`}>
   <input
     type="search"
     placeholder="Search bookmarks..."

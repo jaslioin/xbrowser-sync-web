@@ -1,23 +1,13 @@
 <script lang="ts">
+  import type { SearchBookmark } from "../types/bookmark";
   import BookmarkCard from "./BookmarkCard.svelte";
 
-  const { bookmark } = $props<{
-    bookmark: {
-      url?: string;
-      title: string;
-      children?: Array<{
-        url?: string;
-        title: string;
-        children?: any[];
-      }>;
-    };
-  }>();
+  const { bookmark }: { bookmark: SearchBookmark } = $props();
   let isExpanded = $state(false);
 </script>
 
-
 {#if bookmark.url}
-  <div class="flex items-center gap-2 py-1 hover:bg-base-200 rounded px-2">
+  <div class="flex items-center gap-2 py-1 hover:bg-base-200 rounded px-2 my-1">
     <span>🔗</span>
     <a
       href={bookmark.url}

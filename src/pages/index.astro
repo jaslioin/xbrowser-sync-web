@@ -4,6 +4,7 @@ import BookmarkForm from "../components/BookmarkForm.astro";
 import BookmarkList from "../components/BookmarkList.svelte";
 import DashboardLayout from "../layouts/DashboardLayout.astro";
 import Search from "../components/Search.svelte";
+import BookmarkSearchGrid from "../components/BookmarkSearchGrid.svelte";
 ---
 
 <DashboardLayout title="xBrowserSync Manager">
@@ -12,13 +13,18 @@ import Search from "../components/Search.svelte";
       class="md:w-64 w-full bg-base-200 min-h-screen p-4 flex flex-col overflow-auto max-h-screen relative min-w-32"
     >
       <Search client:idle class="md:hidden mb-4" />
-      <div class="md:none">
-        <BookmarkForm />
+      <div class="md:hidden">
+        <BookmarkForm  />
       </div>
       <BookmarkList client:idle />
     </div>
-    <div class="md:block hidden w-full max-h-dvh overflow-auto">
-      <Search client:idle />
+    <div class="md:flex md:flex-col hidden w-full max-h-dvh overflow-auto ">
+      <Search client:idle class="m-4 w-auto" />
+      <!-- <div class="md:block hidden m-auto min-w-[500px]">
+        <BookmarkForm />
+      </div> -->
+      <BookmarkSearchGrid client:idle/>
     </div>
+
   </div>
 </DashboardLayout>

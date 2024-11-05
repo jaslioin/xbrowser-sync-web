@@ -60,9 +60,11 @@
     hasCache = !!storedBookmarks;
   }
   if (hasCache) {
-    document.getElementById("bookmarkForm").style.display = "none";
+    document.querySelectorAll("#bookmarkForm").forEach((form) => {
+      form.classList.add("hidden");
+    });
   }
-
+  console.log(hasCache);
   document
     .getElementById("bookmarkForm")
     ?.addEventListener("submit", async (e) => {
