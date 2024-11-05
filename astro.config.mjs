@@ -61,9 +61,7 @@ export default defineConfig({
               expiration: {
                 maxAgeSeconds: 24 * 60 * 60
               },
-              matchOptions: {
-                ignoreSearch: true
-              },
+
               cacheableResponse: {
                 statuses: [0, 200, 301] // Only cache successful responses
               }
@@ -73,13 +71,12 @@ export default defineConfig({
             urlPattern: ({ url }) => url.href.includes('api.microlink.io'),
             handler: 'CacheFirst',
             options: {
+
               cacheName: 'api-cache-microlink',
               expiration: {
                 maxAgeSeconds: 24 * 60 * 60
               },
-              matchOptions: {
-                ignoreSearch: true
-              },
+
               cacheableResponse: {
                 statuses: [0, 200, 301] // Only cache successful responses
               }
