@@ -57,12 +57,15 @@ export default defineConfig({
             urlPattern: ({ url }) => url.href.includes('google.com/s2/favicons'),
             handler: 'CacheFirst',
             options: {
-              cacheName: 'api-cache',
+              cacheName: 'api-cache-google-icon',
               expiration: {
                 maxAgeSeconds: 24 * 60 * 60
               },
 
               cacheableResponse: {
+                headers: {
+                  'Content-Length': '>0'
+                },
                 statuses: [0, 200, 301] // Only cache successful responses
               }
             }
@@ -71,13 +74,15 @@ export default defineConfig({
             urlPattern: ({ url }) => url.href.includes('api.microlink.io'),
             handler: 'CacheFirst',
             options: {
-
               cacheName: 'api-cache-microlink',
               expiration: {
                 maxAgeSeconds: 24 * 60 * 60
               },
 
               cacheableResponse: {
+                headers: {
+                  'Content-Length': '>0'
+                },
                 statuses: [0, 200, 301] // Only cache successful responses
               }
             }
