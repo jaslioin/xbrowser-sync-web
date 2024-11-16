@@ -2,7 +2,7 @@
 
 ---
 
-<form class="card bg-base-200 shadow-xl p-6 max-w-xl mx-auto" id="bookmarkForm">
+<form class="card bg-base-200 shadow-xl p-6  mx-auto" id="bookmarkForm">
   <div class="form-control w-full">
     <label class="label" for="endpoint">
       <span class="label-text" onclick="">xBrowserSync API Endpoint</span>
@@ -80,12 +80,16 @@
       console.log("Form submitted with data:", data);
 
       try {
-        let url = `https://api.xbrowsersync.org/bookmarks/${data.syncId}`;
+        let url = `${data.endpoint}/bookmarks/${data.syncId}`;
 
         let options = {
           method: "GET",
         };
 
+        if(!data.password || !data.syncId){
+          alert("password and syncId is required")
+          return
+        }
         const res: {
           bookmarks: string;
         } = await fetch(url, options).then((res) => res.json());

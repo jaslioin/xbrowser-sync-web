@@ -8,8 +8,8 @@ import BookmarkSearchGrid from "../components/BookmarkSearchGrid.svelte";
 ---
 
 <DashboardLayout title="xBrowserSync Manager">
-  <div class="md:flex">
-    <div
+  <div class="flex">
+    <!-- <div
       class="md:w-64 w-full bg-base-200 min-h-screen p-4 flex flex-col overflow-auto max-h-screen relative min-w-32"
     >
       <Search client:idle class="md:hidden mb-4" />
@@ -17,14 +17,13 @@ import BookmarkSearchGrid from "../components/BookmarkSearchGrid.svelte";
         <BookmarkForm  />
       </div>
       <BookmarkList client:idle />
+    </div> -->
+    <div class="flex flex-col w-full max-h-dvh overflow-auto">
+      <div class="m-4">
+        <Search client:idle class="m-4 w-auto" />
+      </div>
+      <BookmarkForm />
+      <BookmarkSearchGrid client:idle />
     </div>
-    <div class="md:flex md:flex-col hidden w-full max-h-dvh overflow-auto ">
-      <Search client:idle class="m-4 w-auto" />
-      <!-- <div class="md:block hidden m-auto min-w-[500px]">
-        <BookmarkForm />
-      </div> -->
-      <BookmarkSearchGrid client:idle/>
-    </div>
-
   </div>
 </DashboardLayout>
