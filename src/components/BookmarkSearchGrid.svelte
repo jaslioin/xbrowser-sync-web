@@ -1,6 +1,5 @@
 <script lang="ts">
   import debounce from "lodash/debounce";
-  import { M } from "../../dist/_astro/template.lO_nkIgB";
   import { searchString } from "../store/search";
   import type { Bookmark, SearchBookmark } from "../types/bookmark";
   import BookmarkGridItem from "./BookmarkGridItem.svelte";
