@@ -81,7 +81,10 @@
       <button
         class="join-item btn"
         disabled={currentPage === 1}
-        onclick={() => currentPage--}
+        onclick={() => {
+          currentPage--;
+          window.scrollTo({ top: 0, behavior: "instant" });
+        }}
       >
         {`<`}
       </button>
@@ -89,7 +92,10 @@
       <button
         class="join-item btn"
         disabled={currentPage * 10 >= bookmarksFiltered.length}
-        onclick={() => currentPage++}
+        onclick={() => {
+          currentPage++;
+          window.scrollTo({ top: 0, behavior: "instant" });
+        }}
       >
         {`>`}
       </button>
