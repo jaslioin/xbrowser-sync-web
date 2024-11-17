@@ -50,11 +50,11 @@
       {/if}
 
       {#if bookmark.url}
-        <div class="w-full h-32 bg-base-200 rounded-lg overflow-hidden">
+        <div class="w-full self-center aspect-video bg-base-200 rounded-lg overflow-hidden transition-transform duration-200">
           <img
             src={getScraperUrl(bookmark.url)}
             alt={`Preview of ${bookmark.title}`}
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover object-left-top "
             loading="lazy"
           />
         </div>
