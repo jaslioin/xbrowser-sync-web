@@ -86,6 +86,23 @@ export default defineConfig({
                 statuses: [0, 200, 301] // Only cache successful responses
               }
             }
+          },
+          {
+            urlPattern: ({ url }) => url.href.includes('localhost:3000/api/scrape'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'localhost:3000/api/scrape',
+              expiration: {
+                maxAgeSeconds: 24 * 60 * 60
+              },
+
+              cacheableResponse: {
+                headers: {
+                  'Content-Type': 'image/webp'  
+                },
+                statuses: [0, 200, 301] // Only cache successful responses
+              }
+            }
           }
         ]
       },

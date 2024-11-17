@@ -1,5 +1,7 @@
 <script lang="ts">
   import { searchString } from "../store/search";
+  import debounce from "lodash/debounce";
+
   const {
     class: className = "",
   }: {
@@ -20,6 +22,8 @@
     searchString.set({ value: target.value });
     console.log(searchString.value);
   }
+
+  const _handleInput = debounce(handleInput, 200);
 </script>
 
 <search class={`${className ?? ""} ${hasCache ? "" : "hidden"}`}>
@@ -27,7 +31,7 @@
     type="search"
     placeholder="Search bookmarks..."
     class="input input-bordered w-full"
-    oninput={handleInput}
+    oninput={_handleInput}
   />
 </search>
 <!-- <div class="flex gap-2 px-4">

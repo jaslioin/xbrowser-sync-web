@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { SearchBookmark } from "../types/bookmark";
+  import { getScraperUrl } from "../utils/get-scraper-url";
 
   const { bookmark }: { bookmark: SearchBookmark } = $props();
 </script>
@@ -10,7 +11,6 @@
   >
     <div class="card-body p-4">
       <div class=" card-title flex items-center gap-2">
-        <span class="text-lg">🔗</span>
         <img
           src={`https://www.google.com/s2/favicons?domain=${new URL(bookmark.url).hostname}&sz=32`}
           alt={`Favicon for ${bookmark.title}`}
@@ -29,15 +29,20 @@
         </div>
       </div>
       {#if bookmark.path}
-        <p class="text-xs text-base-content/60 truncate" title={bookmark.path}>{bookmark.path}</p>
+        <p class="text-xs text-base-content/60 truncate" title={bookmark.path}>
+          {bookmark.path}
+        </p>
       {/if}
       {#if bookmark.description}
-        <p class="text-sm text-base-content/70 line-clamp-2 " title={bookmark.description}>
+        <p
+          class="text-sm text-base-content/70 line-clamp-2"
+          title={bookmark.description}
+        >
           {bookmark.description}
         </p>
       {/if}
       {#if bookmark.tags && bookmark.tags.length > 0}
-        <div class="flex flex-wrap gap-1 ">
+        <div class="flex flex-wrap gap-1">
           {#each bookmark.tags as tag}
             <span class="badge badge-sm badge-outline">{tag}</span>
           {/each}
@@ -47,16 +52,13 @@
       {#if bookmark.url}
         <div class="w-full h-32 bg-base-200 rounded-lg overflow-hidden">
           <img
-            src={`https://api.microlink.io/?url=${encodeURIComponent(bookmark.url)}&screenshot=true&meta=false&embed=screenshot.url`}
+            src={getScraperUrl(bookmark.url)}
             alt={`Preview of ${bookmark.title}`}
             class="w-full h-full object-cover"
             loading="lazy"
           />
         </div>
       {/if}
-
-      
-
     </div>
   </div>
 {:else}
