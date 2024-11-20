@@ -50,12 +50,20 @@
       {/if}
 
       {#if bookmark.url}
-        <div class="w-full self-center aspect-video bg-base-200 rounded-lg overflow-hidden transition-transform duration-200">
+        <div
+          class="w-full self-center aspect-video bg-base-200 rounded-lg overflow-hidden transition-transform duration-200"
+        >
           <img
             src={getScraperUrl(bookmark.url)}
             alt={`Preview of ${bookmark.title}`}
-            class="w-full h-full object-cover object-left-top "
+            class="w-full h-full object-cover object-left-top"
             loading="lazy"
+            onerror={function (self) {
+              if (self.currentTarget.getAttribute("data-is-broken")) return;
+              this.onerror = null;
+              self.currentTarget.setAttribute("data-is-broken", "true");
+              this.src = getScraperUrl(bookmark.url, true);
+            }}
           />
         </div>
       {/if}
