@@ -85,15 +85,18 @@ export default defineConfig({
           {
             urlPattern: ({ url }) => url.href.includes('localhost:3000/api/scrape') ||
               url.href.includes("jsl2021.tail220d0a.ts.net/api/scrape"),
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'v1-api/scrape',
               expiration: {
                 maxAgeSeconds: 24 * 60 * 60
               },
-
+              fetchOptions: {
+                mode: 'cors', // need server allow cors this domain
+                credentials: 'omit'
+              },
               cacheableResponse: {
-                statuses: [0, 200, 301] // Only cache successful responses
+                statuses: [200] // Only cache successful responses
               }
             }
           }
