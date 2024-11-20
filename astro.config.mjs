@@ -83,7 +83,8 @@ export default defineConfig({
             }
           },
           {
-            urlPattern: ({ url }) => url.href.includes('localhost:3000/api/scrape'),
+            urlPattern: ({ url }) => url.href.includes('localhost:3000/api/scrape') ||
+              url.href.includes("jsl2021.tail220d0a.ts.net/api/scrape"),
             handler: 'CacheFirst',
             options: {
               cacheName: 'v1-api/scrape',
